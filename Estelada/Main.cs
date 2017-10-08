@@ -13,9 +13,9 @@ using System.Windows.Forms;
 
 namespace Estelada
 {
-    public partial class Form1 : Form
+    public partial class Main : Form
     {
-        public Form1()
+        public Main()
         {
             InitializeComponent();
 
@@ -27,7 +27,7 @@ namespace Estelada
         private Point[] setOffset(Point[] polygon, int offsetX, int offsetY)
         {
             Point[] res = new Point[polygon.Length];
-            for(int i=0;i<polygon.Length;i++)
+            for (int i = 0; i < polygon.Length; i++)
             {
                 res[i] = new Point(polygon[i].X + offsetX, polygon[i].Y + offsetY);
             }
@@ -35,49 +35,78 @@ namespace Estelada
             return res;
         }
 
-        private void drawStar(int x, int y, int r, Graphics g)
+        private Point ccw(float x, float y, float theta)
+        {
+            return new Point((int)(x * Math.Cos(theta) + y * Math.Sin(theta)), (int)(-x * Math.Sin(theta) + y * Math.Cos(theta)));
+        }
+
+        private Point[] flip(Point[] polygon)
+        {
+            Point[] res = new Point[polygon.Length];
+            for (int i = 0; i < polygon.Length; i++)
+            {
+                res[i] = new Point(polygon[i].X, -polygon[i].Y);
+            }
+            return res;
+        }
+
+        private void drawStar(int x0, int y0, int r, Graphics g)
         {
             float theta = (float)(Math.PI * .4f);
             float alpha = theta * .5f;
+            float beta = alpha * .5f;
+            float y = (float)(r * Math.Cos(theta));
+            float x = (float)((r - y) * Math.Tan(beta));
             Point[] polygon =
             {
-                new Point(0,-r),
-                //new Point((int)(r*Math.Sin(theta)),(int)(-r*Math.Cos(theta))),
-                new Point((int)(r*Math.Sin(alpha)),(int)(r*Math.Cos(alpha))),
-                //new Point((int)(-r*Math.Sin(alpha)),(int)(r*Math.Cos(alpha))),
-                new Point((int)(-r*Math.Sin(theta)),(int)(-r*Math.Cos(theta))),
-                new Point((int)(r*Math.Sin(theta)),(int)(-r*Math.Cos(theta))),
-                new Point((int)(-r*Math.Sin(alpha)),(int)(r*Math.Cos(alpha)))
+                new Point(0,r),
+                new Point((int)(x),(int)(y)),
+                new Point((int)(r*Math.Sin(theta)),(int)(r*Math.Cos(theta))),
+                ccw(x,y,theta),
+                new Point((int)(r*Math.Sin(alpha)),(int)(-r*Math.Cos(alpha))),
+                ccw(x,y,theta*2.0f),
+                new Point((int)(-r*Math.Sin(alpha)),(int)(-r*Math.Cos(alpha))),
+                ccw(x,y,theta*3.0f),
+                new Point((int)(-r*Math.Sin(theta)),(int)(r*Math.Cos(theta))),
+                ccw(x,y,theta*4.0f)
             };
-            polygon = setOffset(polygon, x, y);
+
+            polygon = flip(polygon);
+            polygon = setOffset(polygon, x0, y0);
+
             Pen pen = new Pen(Color.White);
             g.DrawPolygon(pen, polygon);
         }
 
-        private void fillStar(int x, int y, int r, Graphics g)
+        private void fillStar(int x0, int y0, int r, Graphics g)
         {
-            g.SmoothingMode = SmoothingMode.None;
+
             float theta = (float)(Math.PI * .4f);
             float alpha = theta * .5f;
+            float beta = alpha * .5f;
+            float y = (float)(r * Math.Cos(theta));
+            float x = (float)((r - y) * Math.Tan(beta));
             Point[] polygon =
             {
-                new Point(0,-r),
-                new Point((int)(r*Math.Sin(theta)),(int)(-r*Math.Cos(theta))),
-                new Point((int)(r*Math.Sin(alpha)),(int)(r*Math.Cos(alpha))),
-                new Point((int)(-r*Math.Sin(alpha)),(int)(r*Math.Cos(alpha))),
-                new Point((int)(-r*Math.Sin(theta)),(int)(-r*Math.Cos(theta)))
+                new Point(0,r),
+                new Point((int)(x),(int)(y)),
+                new Point((int)(r*Math.Sin(theta)),(int)(r*Math.Cos(theta))),
+                ccw(x,y,theta),
+                new Point((int)(r*Math.Sin(alpha)),(int)(-r*Math.Cos(alpha))),
+                ccw(x,y,theta*2.0f),
+                new Point((int)(-r*Math.Sin(alpha)),(int)(-r*Math.Cos(alpha))),
+                ccw(x,y,theta*3.0f),
+                new Point((int)(-r*Math.Sin(theta)),(int)(r*Math.Cos(theta))),
+                ccw(x,y,theta*4.0f)
             };
-            polygon = setOffset(polygon, x, y);
+
+            polygon = flip(polygon);
+            polygon = setOffset(polygon, x0, y0);
 
             SolidBrush brush = new SolidBrush(Color.White);
 
+            g.FillPolygon(brush, polygon);
 
-            for (int i = 0; i < 5; i++)
-            {
-                int j = (i + (1 << 1)) % 5;
-                g.FillPolygon(brush, new Point[] { polygon[i], new Point(x, y), polygon[j] });
-            }
-            
         }
 
         public byte[] BitmapToByteArray(Bitmap bmp)
@@ -140,17 +169,17 @@ namespace Estelada
             int width = image.Width;
             int height = image.Height;
             int A = 0x80;
-            int p = height/7;
+            int p = height / 7;
 
             for (int y = 0; y < height; y++)
             {
                 for (int x = 0; x < width; x++)
                 {
                     double a = Math.PI / p;
-                    a += (width - x) * .0001;
+                   // a += (width - x) * .0001;
                     int delta = (int)(A * Math.Sin(a * (x - .8 * y)));
-                    array[(y * width + x)*4] = addRGB(delta, delta, delta, array[(y * width + x)*4]);
-                    
+                    array[(y * width + x) * 4] = addRGB(delta, delta, delta, array[(y * width + x) * 4]);
+
                 }
             }
             return ByteArrayToBitmap(array, image);
@@ -159,8 +188,8 @@ namespace Estelada
         private void paintFlag()
         {
             int offset = 10;
-            int flagWidth = pictureBox1.Width - (offset <<1);
-            
+            int flagWidth = pictureBox1.Width - (offset << 1);
+
             int flagHeight = (int)(flagWidth * 2.0 / 3.0);
             if (pictureBox1.Height - (offset << 1) < flagHeight)
             {
@@ -168,7 +197,7 @@ namespace Estelada
                 flagWidth = (int)(flagHeight * 1.5);
             }
 
-            if(pictureBox1.Width==0 || pictureBox1.Height == 0)
+            if (pictureBox1.Width == 0 || pictureBox1.Height == 0)
             {
                 return;
             }
@@ -185,7 +214,7 @@ namespace Estelada
             int interval = (int)(flagHeight / 9.0);
             for (int i = 0; i < 4; i++)
             {
-                g.FillRectangle(gules, offset, interval * ((i<<1) + 1) + offset, flagWidth, interval);
+                g.FillRectangle(gules, offset, interval * ((i << 1) + 1) + offset, flagWidth, interval);
             }
 
             // triangle
@@ -193,20 +222,17 @@ namespace Estelada
             {
                 new Point(0,0), new Point(flagHeight>>1,flagHeight>>1), new Point(0,flagHeight)
             };
-            SolidBrush azure=new SolidBrush(Color.FromArgb(0x0f, 0x47, 0xaf));
-            g.FillPolygon(azure, setOffset(polygon,offset, offset));
+            SolidBrush azure = new SolidBrush(Color.FromArgb(0x0f, 0x47, 0xaf));
+            g.FillPolygon(azure, setOffset(polygon, offset, offset));
 
             // star
-            fillStar((int)(flagHeight /5.0 + offset), (int)(flagHeight*.5+offset), (int)(flagHeight /7.0), g);
+            fillStar((int)(flagHeight / 5.0 + offset), (int)(flagHeight * .5 + offset), (int)(flagHeight / 7.0), g);
 
-            Pen pen = new Pen(Color.Black);
-            g.DrawRectangle(pen, 0, 0, canvas.Width, canvas.Height);
-            
             gules.Dispose();
             or.Dispose();
             g.Dispose();
 
-           canvas = wave(canvas);
+            canvas = wave(canvas);
             pictureBox1.Image = canvas;
 
         }
@@ -214,7 +240,17 @@ namespace Estelada
         private void Form1_Resize(object sender, EventArgs e)
         {
             paintFlag();
-           
+
+        }
+
+        private void aboutToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            new AboutBox().Show();
+        }
+
+        private void quitToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            Dispose();
         }
     }
 }
