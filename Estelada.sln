@@ -1,0 +1,25 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 15
+VisualStudioVersion = 15.0.26730.8
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Estelada", "Estelada\Estelada.csproj", "{CABD9D1F-D3EA-4F2F-9BFA-C6C04D6C040A}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{CABD9D1F-D3EA-4F2F-9BFA-C6C04D6C040A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{CABD9D1F-D3EA-4F2F-9BFA-C6C04D6C040A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{CABD9D1F-D3EA-4F2F-9BFA-C6C04D6C040A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{CABD9D1F-D3EA-4F2F-9BFA-C6C04D6C040A}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {4990E8EF-3DB3-45E1-A739-43AC67496628}
+	EndGlobalSection
+EndGlobal
