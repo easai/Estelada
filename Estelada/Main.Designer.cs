@@ -39,18 +39,15 @@
             this.helpToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.aboutToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.designToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.argentToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.azureToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.gulesToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.orToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.starToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.wavyToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.colorDialogGules = new System.Windows.Forms.ColorDialog();
-            this.colorDialogOr = new System.Windows.Forms.ColorDialog();
             this.openFileDialog1 = new System.Windows.Forms.OpenFileDialog();
             this.saveAsFileDialog = new System.Windows.Forms.SaveFileDialog();
             this.saveFileDialog1 = new System.Windows.Forms.SaveFileDialog();
-            this.argentToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.colorDialogArgent = new System.Windows.Forms.ColorDialog();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.menuStrip1.SuspendLayout();
             this.SuspendLayout();
@@ -91,33 +88,33 @@
             // openToolStripMenuItem
             // 
             this.openToolStripMenuItem.Name = "openToolStripMenuItem";
-            this.openToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.openToolStripMenuItem.Size = new System.Drawing.Size(112, 22);
             this.openToolStripMenuItem.Text = "&Open";
             this.openToolStripMenuItem.Click += new System.EventHandler(this.openToolStripMenuItem_Click);
             // 
             // saveToolStripMenuItem
             // 
             this.saveToolStripMenuItem.Name = "saveToolStripMenuItem";
-            this.saveToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.saveToolStripMenuItem.Size = new System.Drawing.Size(112, 22);
             this.saveToolStripMenuItem.Text = "&Save";
             this.saveToolStripMenuItem.Click += new System.EventHandler(this.saveToolStripMenuItem_Click);
             // 
             // saveasToolStripMenuItem
             // 
             this.saveasToolStripMenuItem.Name = "saveasToolStripMenuItem";
-            this.saveasToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.saveasToolStripMenuItem.Size = new System.Drawing.Size(112, 22);
             this.saveasToolStripMenuItem.Text = "Save &as";
             this.saveasToolStripMenuItem.Click += new System.EventHandler(this.saveasToolStripMenuItem_Click);
             // 
             // toolStripSeparator1
             // 
             this.toolStripSeparator1.Name = "toolStripSeparator1";
-            this.toolStripSeparator1.Size = new System.Drawing.Size(149, 6);
+            this.toolStripSeparator1.Size = new System.Drawing.Size(109, 6);
             // 
             // quitToolStripMenuItem
             // 
             this.quitToolStripMenuItem.Name = "quitToolStripMenuItem";
-            this.quitToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.quitToolStripMenuItem.Size = new System.Drawing.Size(112, 22);
             this.quitToolStripMenuItem.Text = "&Quit";
             this.quitToolStripMenuItem.Click += new System.EventHandler(this.quitToolStripMenuItem_Click);
             // 
@@ -150,51 +147,51 @@
             this.designToolStripMenuItem.Size = new System.Drawing.Size(55, 20);
             this.designToolStripMenuItem.Text = "&Design";
             // 
+            // argentToolStripMenuItem
+            // 
+            this.argentToolStripMenuItem.Name = "argentToolStripMenuItem";
+            this.argentToolStripMenuItem.Size = new System.Drawing.Size(110, 22);
+            this.argentToolStripMenuItem.Text = "Ar&gent";
+            this.argentToolStripMenuItem.Click += new System.EventHandler(this.argentToolStripMenuItem_Click);
+            // 
             // azureToolStripMenuItem
             // 
             this.azureToolStripMenuItem.Name = "azureToolStripMenuItem";
-            this.azureToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.azureToolStripMenuItem.Size = new System.Drawing.Size(110, 22);
             this.azureToolStripMenuItem.Text = "&Azure";
             this.azureToolStripMenuItem.Click += new System.EventHandler(this.azureToolStripMenuItem_Click);
             // 
             // gulesToolStripMenuItem
             // 
             this.gulesToolStripMenuItem.Name = "gulesToolStripMenuItem";
-            this.gulesToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.gulesToolStripMenuItem.Size = new System.Drawing.Size(110, 22);
             this.gulesToolStripMenuItem.Text = "&Gules";
             this.gulesToolStripMenuItem.Click += new System.EventHandler(this.gulesToolStripMenuItem_Click);
             // 
             // orToolStripMenuItem
             // 
             this.orToolStripMenuItem.Name = "orToolStripMenuItem";
-            this.orToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.orToolStripMenuItem.Size = new System.Drawing.Size(110, 22);
             this.orToolStripMenuItem.Text = "&Or";
             this.orToolStripMenuItem.Click += new System.EventHandler(this.orToolStripMenuItem_Click);
             // 
             // starToolStripMenuItem
             // 
             this.starToolStripMenuItem.Name = "starToolStripMenuItem";
-            this.starToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.starToolStripMenuItem.Size = new System.Drawing.Size(110, 22);
             this.starToolStripMenuItem.Text = "&Star";
             this.starToolStripMenuItem.Click += new System.EventHandler(this.starToolStripMenuItem_Click);
             // 
             // wavyToolStripMenuItem
             // 
             this.wavyToolStripMenuItem.Name = "wavyToolStripMenuItem";
-            this.wavyToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.wavyToolStripMenuItem.Size = new System.Drawing.Size(110, 22);
             this.wavyToolStripMenuItem.Text = "&Wavy";
             this.wavyToolStripMenuItem.Click += new System.EventHandler(this.wavyToolStripMenuItem_Click);
             // 
             // openFileDialog1
             // 
             this.openFileDialog1.FileName = "openFileDialog1";
-            // 
-            // argentToolStripMenuItem
-            // 
-            this.argentToolStripMenuItem.Name = "argentToolStripMenuItem";
-            this.argentToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
-            this.argentToolStripMenuItem.Text = "Ar&gent";
-            this.argentToolStripMenuItem.Click += new System.EventHandler(this.argentToolStripMenuItem_Click);
             // 
             // Main
             // 
@@ -229,8 +226,6 @@
         private System.Windows.Forms.ToolStripMenuItem gulesToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem orToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem starToolStripMenuItem;
-        private System.Windows.Forms.ColorDialog colorDialogGules;
-        private System.Windows.Forms.ColorDialog colorDialogOr;
         private System.Windows.Forms.ToolStripMenuItem wavyToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem openToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem saveToolStripMenuItem;
@@ -240,7 +235,6 @@
         private System.Windows.Forms.SaveFileDialog saveAsFileDialog;
         private System.Windows.Forms.SaveFileDialog saveFileDialog1;
         private System.Windows.Forms.ToolStripMenuItem argentToolStripMenuItem;
-        private System.Windows.Forms.ColorDialog colorDialogArgent;
     }
 }
 

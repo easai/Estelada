@@ -17,7 +17,7 @@ namespace Estelada
 
         Boolean wavy = true;
 
-        int starSize = -1;
+        public float starSize = .7f;
         int flagWidth = 0;
         int flagHeight = 0;
 
@@ -28,11 +28,6 @@ namespace Estelada
             InitializeComponent();
 
             PaintFlag();
-        }
-
-        public void setStarSize(int size)
-        {
-            starSize = size;
         }
 
         private Point[] setOffset(Point[] polygon, int offsetX, int offsetY)
@@ -232,11 +227,7 @@ namespace Estelada
             };
             g.FillPolygon(azureBrush, setOffset(polygon, offset - 1, offset));
 
-            // star
-            if (starSize == -1)
-            {
-                starSize = 1;
-            }
+            // star          
             fillStar((int)(flagHeight / 5.0 + offset), (int)(flagHeight * .5 + offset), (int)(starSize * flagHeight / 7), g);
 
             g.Dispose();
