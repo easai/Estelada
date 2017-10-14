@@ -48,6 +48,10 @@
             this.openFileDialog1 = new System.Windows.Forms.OpenFileDialog();
             this.saveAsFileDialog = new System.Windows.Forms.SaveFileDialog();
             this.saveFileDialog1 = new System.Windows.Forms.SaveFileDialog();
+            this.nationStateToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.japanToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.cataloniaToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.eUToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.menuStrip1.SuspendLayout();
             this.SuspendLayout();
@@ -66,7 +70,8 @@
             this.menuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.fileToolStripMenuItem,
             this.helpToolStripMenuItem,
-            this.designToolStripMenuItem});
+            this.designToolStripMenuItem,
+            this.nationStateToolStripMenuItem});
             this.menuStrip1.Location = new System.Drawing.Point(0, 0);
             this.menuStrip1.Name = "menuStrip1";
             this.menuStrip1.Size = new System.Drawing.Size(284, 24);
@@ -193,6 +198,37 @@
             // 
             this.openFileDialog1.FileName = "openFileDialog1";
             // 
+            // nationStateToolStripMenuItem
+            // 
+            this.nationStateToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.japanToolStripMenuItem,
+            this.cataloniaToolStripMenuItem,
+            this.eUToolStripMenuItem});
+            this.nationStateToolStripMenuItem.Name = "nationStateToolStripMenuItem";
+            this.nationStateToolStripMenuItem.Size = new System.Drawing.Size(86, 20);
+            this.nationStateToolStripMenuItem.Text = "&Nation/State";
+            // 
+            // japanToolStripMenuItem
+            // 
+            this.japanToolStripMenuItem.Name = "japanToolStripMenuItem";
+            this.japanToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.japanToolStripMenuItem.Text = "&Japan";
+            this.japanToolStripMenuItem.Click += new System.EventHandler(this.japanToolStripMenuItem_Click);
+            // 
+            // cataloniaToolStripMenuItem
+            // 
+            this.cataloniaToolStripMenuItem.Name = "cataloniaToolStripMenuItem";
+            this.cataloniaToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.cataloniaToolStripMenuItem.Text = "&Catalonia";
+            this.cataloniaToolStripMenuItem.Click += new System.EventHandler(this.cataloniaToolStripMenuItem_Click);
+            // 
+            // eUToolStripMenuItem
+            // 
+            this.eUToolStripMenuItem.Name = "eUToolStripMenuItem";
+            this.eUToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.eUToolStripMenuItem.Text = "&EU";
+            this.eUToolStripMenuItem.Click += new System.EventHandler(this.eUToolStripMenuItem_Click);
+            // 
             // Main
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -235,6 +271,10 @@
         private System.Windows.Forms.SaveFileDialog saveAsFileDialog;
         private System.Windows.Forms.SaveFileDialog saveFileDialog1;
         private System.Windows.Forms.ToolStripMenuItem argentToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem nationStateToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem japanToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem cataloniaToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem eUToolStripMenuItem;
     }
 }
 

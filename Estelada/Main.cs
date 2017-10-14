@@ -10,6 +10,9 @@ namespace Estelada
 {
     public partial class Main : Form
     {
+        enum State { Catalonia, Japan, EU, US };
+        State state = State.Catalonia;
+
         SolidBrush azureBrush = new SolidBrush(Color.FromArgb(0x0f, 0x47, 0xaf));
         SolidBrush gulesBrush = new SolidBrush(Color.FromArgb(0xcc, 0x00, 0x00));
         SolidBrush orBrush = new SolidBrush(Color.FromArgb(0xFF, 0xD7, 0x00));
@@ -17,7 +20,7 @@ namespace Estelada
 
         Boolean wavy = true;
 
-        public float starSize = .7f;
+        public float starSize = 1.0f;
         int flagWidth = 0;
         int flagHeight = 0;
 
@@ -84,7 +87,7 @@ namespace Estelada
             g.DrawPolygon(pen, polygon);
         }
 
-        private void fillStar(int x0, int y0, int r, Graphics g)
+        private void FillStar(int x0, int y0, int r, Graphics g, Brush brush)
         {
 
             float theta = (float)(Math.PI * .4f);
@@ -109,7 +112,7 @@ namespace Estelada
             polygon = flip(polygon);
             polygon = setOffset(polygon, x0, y0);
 
-            g.FillPolygon(argentBrush, polygon);
+            g.FillPolygon(brush, polygon);
 
         }
 
@@ -164,7 +167,17 @@ namespace Estelada
                 blue = 0xff;
             if (blue < 0)
                 blue = 0;
-            return (byte)((0xff << 24) | (red << 16) | (green << 8) | blue);
+            return (byte)((0x00 << 24) | (red << 16) | (green << 8) | blue);
+        }
+
+        private byte overflowAdd(byte x, int y)
+        {
+            byte res = (byte)(x + y);
+            if (0xff < (x + y))
+                res = 0xff;
+            if ((x + y) < 0)
+                res = 0;
+            return res;
         }
 
         public Bitmap Wave(Bitmap image)
@@ -172,8 +185,8 @@ namespace Estelada
             byte[] array = BitmapToByteArray(image);
             int width = image.Width;
             int height = image.Height;
-            int A = 0x80;
-            int p = height / 7;
+            int A = 0x50;
+            int p = height / 4;
 
             for (int y = 0; y < height; y++)
             {
@@ -182,8 +195,19 @@ namespace Estelada
                     double a = Math.PI / p;
                     //a += (width - x) * .0001;
                     int delta = (int)(A * Math.Sin(a * (x - .9 * y)));
-                    
-                    array[(y * width + x) * 4] = addRGB(delta, delta, delta, array[(y * width + x) * 4]);
+
+                    float rate = (float)(.15 * Math.Sin(Math.PI * ((float)x / width- (float)y/height*0.8) / .125));
+
+                    int weekly = (y * width + x) * 4;
+
+                    array[weekly] = overflowAdd(array[weekly], (int)(rate * 0xff));
+                    weekly++;
+                    array[weekly] = overflowAdd(array[weekly], (int)(rate * 0xff));
+                    weekly++;
+                    array[weekly] = overflowAdd(array[weekly], (int)(rate * 0xff));
+
+                    //array[(y * width + x) * 4 + 3] = overflowAdd(array[(y * width + x) * 4 + 3], (byte)delta);//alpha
+
 
                 }
             }
@@ -192,7 +216,24 @@ namespace Estelada
 
         public void PaintFlag()
         {
+            switch (state)
+            {
+                case State.Catalonia:
+                    Estelada();
+                    break;
+                case State.Japan:
+                    Hinomaru();
+                    break;
+                case State.EU:
+                    EU();
+                    break;
+                case State.US:
+                    break;
+            }
+        }
 
+        public void Estelada()
+        {
             flagWidth = pictureBox1.Width - (offset << 1);
 
             flagHeight = (int)(flagWidth * 2.0 / 3.0);
@@ -228,7 +269,7 @@ namespace Estelada
             g.FillPolygon(azureBrush, setOffset(polygon, offset - 1, offset));
 
             // star          
-            fillStar((int)(flagHeight / 5.0 + offset), (int)(flagHeight * .5 + offset), (int)(starSize * flagHeight / 7), g);
+            FillStar((int)(flagHeight / 5.0 + offset), (int)(flagHeight * .5 + offset), (int)(starSize * flagHeight / 7), g,argentBrush);
 
             g.Dispose();
 
@@ -240,6 +281,95 @@ namespace Estelada
 
             pictureBox1.Image = canvas;
 
+        }
+
+        /// <summary>
+        /// 日の丸を描画
+        /// </summary>
+        public void Hinomaru()
+        {
+            flagWidth = pictureBox1.Width - (offset << 1);
+
+            flagHeight = (int)(flagWidth / 1.5);
+            if (pictureBox1.Height - (offset << 1) < flagHeight)
+            {
+                flagHeight = pictureBox1.Height - (offset << 1);
+                flagWidth = (int)(flagHeight * 1.5);
+            }
+
+            if (pictureBox1.Width == 0 || pictureBox1.Height == 0)
+            {
+                return;
+            }
+
+            Bitmap canvas = new Bitmap(pictureBox1.Width, pictureBox1.Height);
+            Graphics g = Graphics.FromImage(canvas);
+            g.SmoothingMode = SmoothingMode.HighQuality;
+
+            // 地          
+            g.FillRectangle(argentBrush, offset, offset, flagWidth, flagHeight);
+
+            // 日の丸
+            int r = (int)(flagHeight * 3.0 / 5.0);
+            g.FillEllipse(gulesBrush, ((flagWidth - r) >> 1) + offset, ((flagHeight - r) >> 1) + offset, r, r);
+
+            g.Dispose();
+
+            if (wavy)
+            {
+                canvas = Wave(canvas);
+            }
+            wavyToolStripMenuItem.Checked = wavy;
+
+            pictureBox1.Image = canvas;
+        }
+
+        /// <summary>
+        /// 欧州旗
+        /// </summary>
+        public void EU()
+        {
+            flagWidth = pictureBox1.Width - (offset << 1);
+
+            flagHeight = (int)(flagWidth / 1.5);
+            if (pictureBox1.Height - (offset << 1) < flagHeight)
+            {
+                flagHeight = pictureBox1.Height - (offset << 1);
+                flagWidth = (int)(flagHeight * 1.5);
+            }
+
+            if (pictureBox1.Width == 0 || pictureBox1.Height == 0)
+            {
+                return;
+            }
+
+            Bitmap canvas = new Bitmap(pictureBox1.Width, pictureBox1.Height);
+            Graphics g = Graphics.FromImage(canvas);
+            g.SmoothingMode = SmoothingMode.HighQuality;
+
+            // 地          
+            g.FillRectangle(azureBrush, offset, offset, flagWidth, flagHeight);
+
+            // star     
+            int starHeight = (int)((flagHeight >> 1) / 9.0f);
+            
+            float r = (float)(flagHeight / 3.0);
+            for(int i = 0; i < 12; i++)
+            {
+                int x = (int)(r * Math.Cos(Math.PI / 6.0 * i));
+                int y = (int)(r * Math.Sin(Math.PI / 6.0 * i));
+                FillStar((int)(x+flagWidth*.5+offset),(int)(y+flagHeight*.5+offset), starHeight, g, orBrush);
+            }
+
+            g.Dispose();
+
+            if (wavy)
+            {
+                canvas = Wave(canvas);
+            }
+            wavyToolStripMenuItem.Checked = wavy;
+
+            pictureBox1.Image = canvas;
         }
 
         private void Form1_Resize(object sender, EventArgs e)
@@ -433,6 +563,24 @@ namespace Estelada
                 argentBrush.Color = dlg.Color;
                 PaintFlag();
             }
+        }
+
+        private void japanToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            state = State.Japan;
+            PaintFlag();
+        }
+
+        private void cataloniaToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            state = State.Catalonia;
+            PaintFlag();
+        }
+
+        private void eUToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            state = State.EU;
+            PaintFlag();
         }
     }
 }
