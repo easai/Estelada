@@ -46,6 +46,15 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="FM, Version=2.0.0.5, Culture=neutral, PublicKeyToken=5d9b678c7ad6da32, processorArchitecture=MSIL">
+      <HintPath>..\packages\FM.2.0.0.5\lib\net40\FM.dll</HintPath>
+    </Reference>
+    <Reference Include="FM.IceLink, Version=2.2.0.0, Culture=neutral, PublicKeyToken=3d875ad72cbda3e9, processorArchitecture=MSIL">
+      <HintPath>..\packages\FM.IceLink.2.2.0\lib\net45\FM.IceLink.dll</HintPath>
+    </Reference>
+    <Reference Include="FM.IceLink.WebRTC, Version=2.2.0.0, Culture=neutral, PublicKeyToken=f0ff3cecc9278ef2, processorArchitecture=MSIL">
+      <HintPath>..\packages\FM.IceLink.WebRTC.2.2.0\lib\net45\FM.IceLink.WebRTC.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Xml.Linq" />
@@ -97,6 +106,7 @@
     <EmbeddedResource Include="StarSize.resx">
       <DependentUpon>StarSize.cs</DependentUpon>
     </EmbeddedResource>
+    <None Include="packages.config" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
