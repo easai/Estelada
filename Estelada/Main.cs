@@ -15,7 +15,7 @@ namespace Estelada
     public partial class Main : Form
     {
         enum State { Catalonia, Japan, EU, US, France, Germany, Italy, UK, Denmark, Norway, Sweden, Finland, Poland, Romania, Belgium, Ireland, Bulgaria, Austria, Switzerland, Luxemberg, Czech, Russia, Lithuania, Latvia };
-        State state = State.Catalonia;
+        State state = State.US;
 
         SolidBrush azureBrush = new SolidBrush(Color.FromArgb(0x0f, 0x47, 0xaf));
         SolidBrush gulesBrush = new SolidBrush(Color.FromArgb(0xcc, 0x00, 0x00));
